@@ -20,6 +20,7 @@ class WeatherViewController: UIViewController {
     
     var weatherModel: WeatherModel!
     var disasterModel: DisasterModel!
+    private var alertController: UIAlertController?
     @IBOutlet weak var weatherImageView: UIImageView!
     @IBOutlet weak var minTempLabel: UILabel!
     @IBOutlet weak var maxTempLabel: UILabel!
@@ -32,6 +33,12 @@ class WeatherViewController: UIViewController {
         NotificationCenter.default.addObserver(forName: UIApplication.didBecomeActiveNotification, object: nil, queue: nil) { [unowned self] notification in
             self.loadWeather(notification.object)
         }
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(closeAlert),
+                                               name: UIApplication.willResignActiveNotification,
+                                               object: nil)
+        
+        
     }
     
     deinit {
@@ -79,9 +86,16 @@ class WeatherViewController: UIViewController {
                     print("Close ViewController by \(alertController)")
                 }
             })
+            self.alertController = alertController
             self.present(alertController, animated: true, completion: nil)
         }
     }
+    
+    @objc private func closeAlert() {
+        alertController?.dismiss(animated: true)
+        alertController = nil
+    }
+    
 }
 
 private extension UIImageView {
