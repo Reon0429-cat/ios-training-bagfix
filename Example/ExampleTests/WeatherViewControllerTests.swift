@@ -87,10 +87,6 @@ class WeatherModelMock: WeatherModel {
         completion(.success(response))
     }
     
-    func fetchWeather(_ request: Request) throws -> Response {
-        return try fetchWeatherImpl(request)
-    }
-    
 }
 
 class DisasterModelMock: DisasterModel {
