@@ -56,5 +56,6 @@ class WeatherModelImpl: WeatherModel {
                 completion(.failure(WeatherError.jsonDecodeError))
             }
         }
+        
     }
 }
